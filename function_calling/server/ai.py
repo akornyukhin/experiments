@@ -1,3 +1,4 @@
+from server.logger import get_logger
 from typing import Any, cast
 from openai import OpenAI
 from openai.types.chat import (
@@ -13,6 +14,27 @@ from openai.types.chat import (
 from openai.types.shared_params import FunctionDefinition
 from server.schema import UserMessagePayload, AssistantMessagePayload
 import json
+
+logger = get_logger()
+
+
+def handle_tool_call(tool_call: ChatCompletionMessageToolCall) -> tuple[str, dict]:
+    tool_call_id = tool_call.id
+    function_name = tool_call.function.name
+    arguments_dict = eval(tool_call.function.arguments)
+
+    logger.info(f"Tool call ID: {tool_call_id}")
+    logger.info(f"Function name: {function_name}")
+    logger.info(f"Arguments dict: {arguments_dict}")
+
+    result = getattr(globals()[function_name], "__call__")(**arguments_dict)
+
+    logger.info(f"Result: {result}")
+
+    result_dict = arguments_dict
+    result_dict["function_call_result"] = result
+
+    return tool_call_id, result_dict
 
 
 def green_colour_attached_to_name(name: str) -> str:
@@ -46,20 +68,26 @@ tools = [green_colour_attached_to_name_tool]
 
 
 def handle_messages(
-    messages: list[UserMessagePayload | AssistantMessagePayload],
+    messages: list[UserMessagePayload | AssistantMessagePayload | ChatCompletionToolMessageParam | ChatCompletionAssistantMessageParam],
 ) -> ChatCompletionMessage:
-    transformed_messages = [
-        ChatCompletionUserMessageParam(content=msg.content, role="user")
-        if msg.role == "user"
-        else ChatCompletionAssistantMessageParam(content=msg.content, role="assistant")
-        for msg in messages
-    ]
+    transformed_messages: list[ChatCompletionUserMessageParam |
+                               ChatCompletionAssistantMessageParam | ChatCompletionToolMessageParam] = []
+    for msg in messages:
+        if isinstance(msg, UserMessagePayload):
+            transformed_messages.append(
+                ChatCompletionUserMessageParam(content=msg.content, role="user"))
+        elif isinstance(msg, AssistantMessagePayload):
+            transformed_messages.append(ChatCompletionAssistantMessageParam(
+                content=msg.content, role="assistant"))
+        else:
+            transformed_messages.append(msg)
+
     completion = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         messages=[
             ChatCompletionSystemMessageParam(
                 role="system",
-                content="You are a helpful assistant. Before making a function call, make sure you know all the necessary information from the user.",
+                content="You are a helpful assistant wtih access to a list of tools.",
             ),
             *transformed_messages,
         ],
@@ -73,13 +101,8 @@ def handle_messages(
                 0
             ].message.tool_calls[0]
 
-            tool_call_id = tool_call.id
+            tool_call_id, tool_call_result_dict = handle_tool_call(tool_call)
 
-            function_name = tool_call.function.name
-            arguments_dict = eval(tool_call.function.arguments)
-            tool_call_result = getattr(globals()[function_name], "__call__")(
-                **arguments_dict
-            )
             tool_call_message = ChatCompletionAssistantMessageParam(
                 role="assistant",
                 tool_calls=[
@@ -91,27 +114,19 @@ def handle_messages(
 
             function_call_result_message = ChatCompletionToolMessageParam(
                 role="tool",
-                content=json.dumps(
-                    {"name": "Alex", "function_call_result": tool_call_result}
-                ),
+                content=json.dumps(tool_call_result_dict),
                 tool_call_id=tool_call_id,
             )
 
-            completion = client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    ChatCompletionSystemMessageParam(
-                        role="system",
-                        content="You are a helpful assistant. Before making a function call, make sure you know all the necessary information from the user.",
-                    ),
-                    *transformed_messages,
-                    tool_call_message,
-                    function_call_result_message,
-                ],
-                tools=tools,
-            )
+            logger.info(
+                f"function_call_result_message: {function_call_result_message}")
 
-            if completion.choices[0].finish_reason == "stop":
-                return completion.choices[0].message
+            return handle_messages(
+                messages=[
+                    *messages,
+                    tool_call_message,
+                    function_call_result_message
+                ]
+            )
 
     return ChatCompletionMessage(role="assistant", content="Somethin went wrong")

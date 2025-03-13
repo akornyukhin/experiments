@@ -20,7 +20,10 @@ const Message = ({ msg }: { msg: ChatMessage }) => (
 
 function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { content: "Sup", role: "assistant" },
+    {
+      content: "Hi, I am your friendly assistant, how can I help?",
+      role: "assistant",
+    },
   ]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -91,7 +94,7 @@ function App() {
           required
           className="p-2 border rounded-md"
           onKeyDown={(e) => {
-            if (e.shiftKey && e.key === "Enter") {
+            if (e.metaKey && e.key === "Enter") {
               e.preventDefault(); // Prevent newline insertion
               // @ts-ignore
               e.target.form.requestSubmit(); // Trigger form submission
