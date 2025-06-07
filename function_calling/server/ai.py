@@ -1,21 +1,27 @@
-from server.logger import get_logger
+import json
+import os
 from typing import Any, cast
+
 from openai import OpenAI
 from openai.types.chat import (
-    ChatCompletionToolParam,
-    ChatCompletionMessage,
-    ChatCompletionUserMessageParam,
     ChatCompletionAssistantMessageParam,
-    ChatCompletionSystemMessageParam,
+    ChatCompletionMessage,
     ChatCompletionMessageToolCall,
     ChatCompletionMessageToolCallParam,
+    ChatCompletionSystemMessageParam,
     ChatCompletionToolMessageParam,
+    ChatCompletionToolParam,
+    ChatCompletionUserMessageParam,
 )
 from openai.types.shared_params import FunctionDefinition
-from server.schema import UserMessagePayload, AssistantMessagePayload
-import json
+
+from server.logger import get_logger
+from server.schema import AssistantMessagePayload, UserMessagePayload
 
 logger = get_logger()
+
+
+os.environ["OPENAI_API_KEY"] = "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"
 
 
 def handle_tool_call(tool_call: ChatCompletionMessageToolCall) -> tuple[str, dict]:

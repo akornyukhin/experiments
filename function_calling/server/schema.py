@@ -1,10 +1,11 @@
-from pydantic import BaseModel
-from typing import Literal, Union, Iterable
+from typing import Iterable, Literal, Union
+
 from openai.types.chat import (
-    ChatCompletionContentPartTextParam,
     ChatCompletionContentPartImageParam,
     ChatCompletionContentPartInputAudioParam,
+    ChatCompletionContentPartTextParam,
 )
+from pydantic import BaseModel
 
 
 class RootResponse(BaseModel):

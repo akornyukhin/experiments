@@ -1,14 +1,11 @@
-from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse
-from fastapi.middleware.cors import CORSMiddleware
-from server.schema import (
-    RootResponse,
-    AssistantMessagePayload,
-    MessagesPayload,
-)
-from server.ai import handle_messages
-from openai.types.chat import ChatCompletionMessage
 from dotenv import load_dotenv
+from fastapi import FastAPI, Form
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
+from openai.types.chat import ChatCompletionMessage
+
+from server.ai import handle_messages
+from server.schema import AssistantMessagePayload, MessagesPayload, RootResponse
 
 load_dotenv()
 
