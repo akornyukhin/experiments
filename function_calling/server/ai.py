@@ -21,9 +21,6 @@ from server.schema import AssistantMessagePayload, UserMessagePayload
 logger = get_logger()
 
 
-os.environ["OPENAI_API_KEY"] = "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"
-
-
 def handle_tool_call(tool_call: ChatCompletionMessageToolCall) -> tuple[str, dict]:
     tool_call_id = tool_call.id
     function_name = tool_call.function.name
