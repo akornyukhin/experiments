@@ -28,3 +28,56 @@ dist-ssr
 **/.env
 **/.env.*
 
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+# Python virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+.venv/
+
+# Build directories
+build/
+out/
+.next/
+.nuxt/
+.output/
+
+# Dependencies
+.pnp/
+.pnp.js
+.yarn/
+.yarnrc
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Testing
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+
+# IDE specific
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.settings/
+*.code-workspace
+
+# OS generated
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
