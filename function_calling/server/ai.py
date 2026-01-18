@@ -21,8 +21,6 @@ from server.schema import AssistantMessagePayload, UserMessagePayload
 logger = get_logger()
 
 
-
-
 def handle_tool_call(tool_call: ChatCompletionMessageToolCall) -> tuple[str, dict]:
     tool_call_id = tool_call.id
     function_name = tool_call.function.name
