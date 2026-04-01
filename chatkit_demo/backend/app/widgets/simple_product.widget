@@ -1,0 +1,240 @@
+{
+  "version": "1.0",
+  "name": "Simple product list",
+  "template": "{\"type\":\"ListView\",\"children\":[{%- set _c -%}{%-for item in items -%},{\"type\":\"ListViewItem\",\"key\":{{ (item.name) | tojson }},\"gap\":3,\"children\":[{\"type\":\"Image\",\"src\":{{ (item.image) | tojson }},\"alt\":{{ (item.title) | tojson }},\"size\":56,\"aspectRatio\":1,\"radius\":\"sm\"},{\"type\":\"Col\",\"gap\":0,\"children\":[{\"type\":\"Row\",\"children\":[{\"type\":\"Text\",\"value\":{{ (item.title) | tojson }},\"size\":\"sm\",\"weight\":\"semibold\",\"maxLines\":1},{\"type\":\"Spacer\"},{\"type\":\"Badge\",\"label\":{{ (item.priceText) | tojson }},\"color\":\"info\",\"variant\":\"soft\"}]},{\"type\":\"Caption\",\"value\":{{ (item.description) | tojson }},\"color\":\"secondary\",\"maxLines\":1}]}]}{%-endfor-%}{%- endset -%}{{- (_c[1:] if _c and _c[0] == ',' else _c) -}}]}",
+  "jsonSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "priceText": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "title",
+            "description",
+            "priceText",
+            "image"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "items"
+    ],
+    "additionalProperties": false
+  },
+  "outputJsonPreview": {
+    "type": "ListView",
+    "children": [
+      {
+        "type": "ListViewItem",
+        "key": "catnip-latte-mug",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Image",
+            "src": "https://www.placekittens.com/400/400?image=1",
+            "alt": "Catnip Latte Mug",
+            "size": 56,
+            "aspectRatio": 1,
+            "radius": "sm"
+          },
+          {
+            "type": "Col",
+            "gap": 0,
+            "children": [
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Catnip Latte Mug",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Badge",
+                    "color": "info",
+                    "variant": "soft"
+                  }
+                ]
+              },
+              {
+                "type": "Caption",
+                "value": "A mug with a catnip latte design",
+                "color": "secondary",
+                "maxLines": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ListViewItem",
+        "key": "midnight-tabby-hoodie",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Image",
+            "src": "https://www.placekittens.com/400/400?image=2",
+            "alt": "Midnight Tabby Hoodie",
+            "size": 56,
+            "aspectRatio": 1,
+            "radius": "sm"
+          },
+          {
+            "type": "Col",
+            "gap": 0,
+            "children": [
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Midnight Tabby Hoodie",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Badge",
+                    "color": "info",
+                    "variant": "soft"
+                  }
+                ]
+              },
+              {
+                "type": "Caption",
+                "value": "A hoodie with a midnight tabby design",
+                "color": "secondary",
+                "maxLines": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ListViewItem",
+        "key": "whisker-desk-lamp",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Image",
+            "src": "https://www.placekittens.com/400/400?image=3",
+            "alt": "Whisker Desk Lamp",
+            "size": 56,
+            "aspectRatio": 1,
+            "radius": "sm"
+          },
+          {
+            "type": "Col",
+            "gap": 0,
+            "children": [
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Whisker Desk Lamp",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Badge",
+                    "color": "info",
+                    "variant": "soft"
+                  }
+                ]
+              },
+              {
+                "type": "Caption",
+                "value": "A desk lamp with a whisker design",
+                "color": "secondary",
+                "maxLines": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "ListViewItem",
+        "key": "purr-mode-keyboard-mat",
+        "gap": 3,
+        "children": [
+          {
+            "type": "Image",
+            "src": "https://www.placekittens.com/400/400?image=4",
+            "alt": "Purr Mode Keyboard Mat",
+            "size": 56,
+            "aspectRatio": 1,
+            "radius": "sm"
+          },
+          {
+            "type": "Col",
+            "gap": 0,
+            "children": [
+              {
+                "type": "Row",
+                "children": [
+                  {
+                    "type": "Text",
+                    "value": "Purr Mode Keyboard Mat",
+                    "size": "sm",
+                    "weight": "semibold",
+                    "maxLines": 1
+                  },
+                  {
+                    "type": "Spacer"
+                  },
+                  {
+                    "type": "Badge",
+                    "color": "info",
+                    "variant": "soft"
+                  }
+                ]
+              },
+              {
+                "type": "Caption",
+                "value": "A keyboard mat with a purr mode design",
+                "color": "secondary",
+                "maxLines": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "encodedWidget": "eyJpZCI6ImZmNWViYzcyLTQ4YTUtNGFlNy04MmVmLThlYjJiNDA0ZmI0YSIsIm5hbWUiOiJTaW1wbGUgcHJvZHVjdCBsaXN0IiwidmlldyI6IjxMaXN0Vmlldz5cbiAge2l0ZW1zLm1hcCgoaXRlbSkgPT4gKFxuICAgIDxMaXN0Vmlld0l0ZW0ga2V5PXtpdGVtLm5hbWV9IGdhcD17M30-XG4gICAgICA8SW1hZ2VcbiAgICAgICAgc3JjPXtpdGVtLmltYWdlfVxuICAgICAgICBhbHQ9e2l0ZW0udGl0bGV9XG4gICAgICAgIHNpemU9ezU2fVxuICAgICAgICBhc3BlY3RSYXRpbz17MX1cbiAgICAgICAgcmFkaXVzPVwic21cIlxuICAgICAgLz5cbiAgICAgIDxDb2wgZ2FwPXswfT5cbiAgICAgICAgPFJvdz5cbiAgICAgICAgICA8VGV4dCB2YWx1ZT17aXRlbS50aXRsZX0gc2l6ZT1cInNtXCIgd2VpZ2h0PVwic2VtaWJvbGRcIiBtYXhMaW5lcz17MX0gLz5cbiAgICAgICAgICA8U3BhY2VyIC8-XG4gICAgICAgICAgPEJhZGdlIGxhYmVsPXtpdGVtLnByaWNlVGV4dH0gY29sb3I9XCJpbmZvXCIgdmFyaWFudD1cInNvZnRcIiAvPlxuICAgICAgICA8L1Jvdz5cbiAgICAgICAgPENhcHRpb24gdmFsdWU9e2l0ZW0uZGVzY3JpcHRpb259IGNvbG9yPVwic2Vjb25kYXJ5XCIgbWF4TGluZXM9ezF9IC8-XG4gICAgICA8L0NvbD5cbiAgICA8L0xpc3RWaWV3SXRlbT5cbiAgKSl9XG48L0xpc3RWaWV3PiIsImRlZmF1bHRTdGF0ZSI6eyJpdGVtcyI6W3sidGl0bGUiOiJDYXRuaXAgTGF0dGUgTXVnIiwibmFtZSI6ImNhdG5pcC1sYXR0ZS1tdWciLCJkZXNjcmlwdGlvbiI6IkEgbXVnIHdpdGggYSBjYXRuaXAgbGF0dGUgZGVzaWduIiwicHJpY2UiOjE4Ljk5LCJpbWFnZSI6Imh0dHBzOi8vd3d3LnBsYWNla2l0dGVucy5jb20vNDAwLzQwMD9pbWFnZT0xIn0seyJ0aXRsZSI6Ik1pZG5pZ2h0IFRhYmJ5IEhvb2RpZSIsIm5hbWUiOiJtaWRuaWdodC10YWJieS1ob29kaWUiLCJkZXNjcmlwdGlvbiI6IkEgaG9vZGllIHdpdGggYSBtaWRuaWdodCB0YWJieSBkZXNpZ24iLCJwcmljZSI6NTQsImltYWdlIjoiaHR0cHM6Ly93d3cucGxhY2VraXR0ZW5zLmNvbS80MDAvNDAwP2ltYWdlPTIifSx7InRpdGxlIjoiV2hpc2tlciBEZXNrIExhbXAiLCJuYW1lIjoid2hpc2tlci1kZXNrLWxhbXAiLCJkZXNjcmlwdGlvbiI6IkEgZGVzayBsYW1wIHdpdGggYSB3aGlza2VyIGRlc2lnbiIsInByaWNlIjozOS41LCJpbWFnZSI6Imh0dHBzOi8vd3d3LnBsYWNla2l0dGVucy5jb20vNDAwLzQwMD9pbWFnZT0zIn0seyJ0aXRsZSI6IlB1cnIgTW9kZSBLZXlib2FyZCBNYXQiLCJuYW1lIjoicHVyci1tb2RlLWtleWJvYXJkLW1hdCIsImRlc2NyaXB0aW9uIjoiQSBrZXlib2FyZCBtYXQgd2l0aCBhIHB1cnIgbW9kZSBkZXNpZ24iLCJwcmljZSI6MjQuNzUsImltYWdlIjoiaHR0cHM6Ly93d3cucGxhY2VraXR0ZW5zLmNvbS80MDAvNDAwP2ltYWdlPTQifV19LCJzdGF0ZXMiOltdLCJzY2hlbWEiOiJpbXBvcnQgeyB6IH0gZnJvbSBcInpvZFwiXG5cbmNvbnN0IFByb2R1Y3QgPSB6LnN0cmljdE9iamVjdCh7XG4gIG5hbWU6IHouc3RyaW5nKCksXG4gIHRpdGxlOiB6LnN0cmluZygpLFxuICBkZXNjcmlwdGlvbjogei5zdHJpbmcoKSxcbiAgcHJpY2VUZXh0OiB6LnN0cmluZygpLFxuICBpbWFnZTogei5zdHJpbmcoKSxcbn0pXG5cbmNvbnN0IFdpZGdldFN0YXRlID0gei5zdHJpY3RPYmplY3Qoe1xuICBpdGVtczogei5hcnJheShQcm9kdWN0KSxcbn0pXG5cbmV4cG9ydCBkZWZhdWx0IFdpZGdldFN0YXRlIiwianNvblNjaGVtYSI6e30sInNjaGVtYU1vZGUiOiJ6b2QiLCJzY2hlbWFWYWxpZGl0eSI6InZhbGlkIiwidmlld1ZhbGlkaXR5IjoidmFsaWQiLCJkZWZhdWx0U3RhdGVWYWxpZGl0eSI6ImludmFsaWQifQ"
+}
