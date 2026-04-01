@@ -1,13 +1,22 @@
-from dotenv import load_dotenv
 from fastapi import FastAPI, Form
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from openai.types.chat import ChatCompletionMessage
-
+from fastapi.middleware.cors import CORSMiddleware
+from server.schema import (
+    RootResponse,
+    AssistantMessagePayload,
+    MessagesPayload,
+    Person,
+)
 from server.ai import handle_messages
-from server.schema import AssistantMessagePayload, MessagesPayload, RootResponse
+from openai.types.chat import ChatCompletionMessage
+from dotenv import load_dotenv
+import logging
 
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -31,3 +40,14 @@ def send_message(payload: MessagesPayload) -> AssistantMessagePayload:
     # Simulate adding the message to the chat history
     result: ChatCompletionMessage = handle_messages(payload.messages)
     return AssistantMessagePayload(role="assistant", content=result.content)
+
+
+@app.post("/person")
+def create_person(person: Person):
+    # Log the person instance
+    logger.info(f"Person created: {person}")
+    return {
+        "status": "success",
+        "message": "Person logged successfully",
+        "person": person,
+    }

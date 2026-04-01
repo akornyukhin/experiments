@@ -1,5 +1,5 @@
-from typing import Iterable, Literal, Union
-
+from pydantic import BaseModel
+from typing import List, Literal, Optional, Union, Iterable
 from openai.types.chat import (
     ChatCompletionContentPartImageParam,
     ChatCompletionContentPartInputAudioParam,
@@ -27,9 +27,15 @@ class UserMessagePayload(BaseModel):
 
 
 class AssistantMessagePayload(BaseModel):
-    content: str | None
     role: Literal["assistant"]
+    content: Optional[str]
 
 
 class MessagesPayload(BaseModel):
-    messages: list[UserMessagePayload | AssistantMessagePayload]
+    messages: List[UserMessagePayload | AssistantMessagePayload]
+
+
+class Person(BaseModel):
+    name: str
+    age: int
+    gender: Literal["male", "female"]
