@@ -7,26 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Frontend build output
+node_modules/
+dist/
+dist-ssr/
+.vite/
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
+# Local environment files
 .env
 .env.*
 **/.env
 **/.env.*
+!.env.example
+!**/.env.example
+!.env.sample
+!**/.env.sample
+!.env.template
+!**/.env.template
+.python-version
 
 # Python cache files
 __pycache__/
@@ -38,12 +37,13 @@ htmlcov/
 .tox/
 .nox/
 .hypothesis/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
 # Python virtual environments
 venv/
 env/
 ENV/
-.venv/
-.env/
 .venv/
 
 # Build directories
@@ -58,9 +58,6 @@ out/
 .pnp.js
 .yarn/
 .yarnrc
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
 
 # Testing
 coverage/
@@ -68,7 +65,15 @@ coverage/
 junit.xml
 test-results/
 
-# IDE specific
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.sublime-workspace
 *.sublime-project
 .project
@@ -77,6 +82,7 @@ test-results/
 *.code-workspace
 
 # OS generated
+.DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
